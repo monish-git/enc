@@ -1,0 +1,931 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   ECN design tokens - every theme is just a set of these variables.
+   Default = Windows 95 (spec palette).
+   ===================================================================== */
+:root,
+:root[data-theme='win95'] {
+  --desktop: #008080;
+  --bg: #c0c0c0;
+  --face: #d4d0c8;
+  --lite: #e8e4dc; /* inner highlight */
+  --hi: #ffffff;
+  --lo: #808080;
+  --dk: #0a0a0a;
+  --title: #000080;
+  --title2: #000080;
+  --title-text: #ffffff;
+  --title-off: #808080;
+  --title-off2: #808080;
+  --accent: #008080;
+  --text: #000000;
+  --field: #ffffff;
+  --field-text: #000000;
+  --sel: #000080;
+  --sel-text: #ffffff;
+  --term-bg: #000000;
+  --term-fg: #00ff00;
+  --term-dim: #00a000;
+  --warn: #ffff00;
+  --bad: #ff5555;
+  --ok: #00ff00;
+  --font-ui: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Verdana, 'DejaVu Sans', sans-serif;
+  --font-term: 'VT323', 'Courier New', monospace;
+  --font-mono: 'Courier New', Courier, monospace;
+  --fs: 12px;
+}
+
+:root[data-theme='win98'] {
+  --desktop: #3a6ea5;
+  --bg: #c0c0c0;
+  --face: #c0c0c0;
+  --lite: #dfdfdf;
+  --title: #000080;
+  --title2: #1084d0;
+  --title-off: #808080;
+  --title-off2: #b5b5b5;
+  --accent: #008080;
+}
+
+:root[data-theme='desert'] {
+  --desktop: #c9a66b;
+  --bg: #e0d3b0;
+  --face: #ebe0c0;
+  --lite: #f6efd9;
+  --hi: #fffdf2;
+  --lo: #9c8b62;
+  --dk: #3a2f14;
+  --title: #7a3b12;
+  --title2: #b4642a;
+  --title-off: #8b7d5a;
+  --title-off2: #a99a74;
+  --accent: #7a3b12;
+  --sel: #7a3b12;
+  --field: #fffdf2;
+  --text: #2a2008;
+  --field-text: #2a2008;
+  --term-bg: #1d1608;
+  --term-fg: #ffd37a;
+  --term-dim: #b88a30;
+}
+
+:root[data-theme='hacker'] {
+  --desktop: #000000;
+  --bg: #050805;
+  --face: #0b140b;
+  --lite: #123012;
+  --hi: #1f7a1f;
+  --lo: #0a3d0a;
+  --dk: #00ff00;
+  --title: #003b00;
+  --title2: #006b00;
+  --title-text: #00ff00;
+  --title-off: #1a2a1a;
+  --title-off2: #1a2a1a;
+  --accent: #00ff00;
+  --text: #33ff33;
+  --field: #000000;
+  --field-text: #33ff33;
+  --sel: #00aa00;
+  --sel-text: #000000;
+  --term-fg: #33ff33;
+  --term-dim: #118811;
+}
+
+:root[data-theme='amber'] {
+  --desktop: #0a0600;
+  --bg: #100a00;
+  --face: #1a1000;
+  --lite: #3a2400;
+  --hi: #a86800;
+  --lo: #4a2d00;
+  --dk: #ffb000;
+  --title: #5a3700;
+  --title2: #8a5600;
+  --title-text: #ffb000;
+  --title-off: #2a1b00;
+  --title-off2: #2a1b00;
+  --accent: #ffb000;
+  --text: #ffb000;
+  --field: #000000;
+  --field-text: #ffb000;
+  --sel: #ffb000;
+  --sel-text: #000000;
+  --term-bg: #000000;
+  --term-fg: #ffb000;
+  --term-dim: #a06e00;
+  --warn: #ffe080;
+  --ok: #ffb000;
+}
+
+:root[data-theme='contrast'] {
+  --desktop: #000000;
+  --bg: #000000;
+  --face: #000000;
+  --lite: #000000;
+  --hi: #ffffff;
+  --lo: #ffffff;
+  --dk: #ffffff;
+  --title: #000000;
+  --title2: #000000;
+  --title-text: #ffff00;
+  --title-off: #000000;
+  --title-off2: #000000;
+  --accent: #ffff00;
+  --text: #ffffff;
+  --field: #000000;
+  --field-text: #ffffff;
+  --sel: #ffff00;
+  --sel-text: #000000;
+  --term-bg: #000000;
+  --term-fg: #ffff00;
+  --term-dim: #c8c800;
+  --warn: #ffff00;
+}
+
+/* Dark CRT terminal mode: overrides whichever theme is active. */
+:root[data-crt='on'] {
+  --desktop: #000000;
+  --bg: #020502;
+  --face: #061006;
+  --lite: #0c200c;
+  --hi: #1f7a1f;
+  --lo: #0a3d0a;
+  --dk: #00cc00;
+  --title: #003b00;
+  --title2: #005a00;
+  --title-text: #33ff33;
+  --title-off: #0f1f0f;
+  --title-off2: #0f1f0f;
+  --accent: #33ff33;
+  --text: #33ff33;
+  --field: #000000;
+  --field-text: #33ff33;
+  --sel: #33ff33;
+  --sel-text: #000000;
+  --term-bg: #000000;
+  --term-fg: #33ff33;
+  --term-dim: #118811;
+  --font-ui: 'VT323', 'Courier New', monospace;
+  --fs: 16px;
+}
+:root[data-crt='on'] body {
+  text-shadow: 0 0 3px rgba(51, 255, 51, 0.55);
+}
+
+/* ===================================================================== base */
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--desktop);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--fs);
+  line-height: 1.3;
+  overflow: hidden;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+::selection {
+  background: var(--sel);
+  color: var(--sel-text);
+}
+a {
+  color: inherit;
+}
+.link {
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+:root[data-theme='win95'] .link,
+:root[data-theme='win98'] .link,
+:root[data-theme='desert'] .link {
+  color: #0000cc;
+}
+:focus-visible {
+  outline: 1px dotted var(--text);
+  outline-offset: 1px;
+}
+
+/* Classic scrollbars (no arrow buttons; checker track + raised thumb) */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--face) var(--bg);
+}
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--face);
+  background-image: linear-gradient(45deg, var(--hi) 25%, transparent 25%, transparent 75%, var(--hi) 75%),
+    linear-gradient(45deg, var(--hi) 25%, transparent 25%, transparent 75%, var(--hi) 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--face);
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+::-webkit-scrollbar-corner {
+  background: var(--face);
+}
+
+/* ===================================================================== bevels */
+.raised {
+  background: var(--face);
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+.sunken {
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo), inset -2px -2px var(--lite), inset 2px 2px var(--dk);
+}
+.sunken-thin {
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo);
+}
+.etched {
+  border: 1px solid var(--lo);
+  box-shadow: 1px 1px 0 var(--hi), inset 1px 1px 0 var(--hi);
+}
+
+/* ===================================================================== windows */
+.win {
+  background: var(--face);
+  padding: 3px;
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  color: var(--text);
+}
+.win > .win-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+}
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  flex: 0 0 auto;
+  padding: 2px 2px 2px 3px;
+  color: var(--title-text);
+  background: linear-gradient(90deg, var(--title), var(--title2));
+  font-weight: 700;
+  user-select: none;
+}
+.titlebar.inactive {
+  background: linear-gradient(90deg, var(--title-off), var(--title-off2));
+  color: var(--face);
+}
+.titlebar .ttl {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tbtns {
+  display: flex;
+  gap: 2px;
+}
+.tbtn {
+  width: 16px;
+  height: 14px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--face);
+  color: var(--text);
+  cursor: default;
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+.tbtn:active {
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--dk), inset -2px -2px var(--lite), inset 2px 2px var(--lo);
+}
+.tbtn svg {
+  display: block;
+  shape-rendering: crispEdges;
+}
+.tbtn.gap {
+  margin-left: 2px;
+}
+
+/* ===================================================================== buttons */
+.btn {
+  position: relative;
+  min-width: 75px;
+  padding: 4px 12px;
+  background: var(--face);
+  color: var(--text);
+  cursor: default;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+.btn:active:not(:disabled),
+.btn.pressed {
+  padding: 5px 11px 3px 13px;
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--dk), inset -2px -2px var(--lite), inset 2px 2px var(--lo);
+}
+.btn.primary {
+  box-shadow: 0 0 0 1px var(--dk), inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+.btn:focus-visible {
+  outline: 1px dotted var(--text);
+  outline-offset: -5px;
+}
+.btn:disabled {
+  color: var(--lo);
+  text-shadow: 1px 1px 0 var(--hi);
+}
+.btn.sm {
+  min-width: 0;
+  padding: 2px 8px;
+}
+.btn.sm:active:not(:disabled),
+.btn.sm.pressed {
+  padding: 3px 7px 1px 9px;
+}
+.btn.icon {
+  min-width: 0;
+  padding: 3px 6px;
+}
+.btn.danger {
+  color: #a00000;
+}
+:root[data-theme='hacker'] .btn.danger,
+:root[data-theme='amber'] .btn.danger,
+:root[data-theme='contrast'] .btn.danger,
+:root[data-crt='on'] .btn.danger {
+  color: var(--warn);
+}
+.tool {
+  padding: 2px 6px;
+  background: transparent;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.tool:hover {
+  box-shadow: inset -1px -1px var(--lo), inset 1px 1px var(--hi);
+}
+.tool:active {
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo);
+}
+
+/* ===================================================================== fields */
+.field {
+  background: var(--field);
+  color: var(--field-text);
+  padding: 3px 4px;
+  min-width: 0;
+  width: 100%;
+  border-radius: 0;
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo), inset -2px -2px var(--lite), inset 2px 2px var(--dk);
+  caret-color: var(--field-text);
+}
+.field:disabled {
+  background: var(--face);
+  color: var(--lo);
+}
+.field::placeholder {
+  color: var(--lo);
+}
+select.field {
+  padding-right: 2px;
+}
+textarea.field {
+  resize: none;
+  line-height: 1.35;
+}
+.chk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  user-select: none;
+}
+.chk input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  background: var(--field);
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo), inset -2px -2px var(--lite), inset 2px 2px var(--dk);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+.chk input:checked::after {
+  content: '';
+  width: 3px;
+  height: 7px;
+  border: solid var(--field-text);
+  border-width: 0 2px 2px 0;
+  transform: translate(0, -1px) rotate(45deg);
+}
+.chk input:disabled {
+  opacity: 0.6;
+}
+.chk input:focus-visible {
+  outline: 1px dotted var(--text);
+  outline-offset: 2px;
+}
+.group {
+  border: 1px solid var(--lo);
+  box-shadow: 1px 1px 0 var(--hi), inset 1px 1px 0 var(--hi);
+  padding: 10px 10px 8px;
+  margin: 0;
+  min-width: 0;
+}
+.group > legend {
+  padding: 0 4px;
+}
+
+/* ===================================================================== tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  padding-left: 2px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 3px 10px 2px;
+  margin-top: 2px;
+  background: var(--face);
+  cursor: default;
+  box-shadow: inset 1px 1px var(--hi), inset -1px 0 var(--dk), inset -2px 0 var(--lo), inset 2px 2px var(--lite);
+}
+.tab[aria-selected='true'] {
+  margin-top: 0;
+  padding-top: 5px;
+  margin-bottom: -2px;
+  padding-bottom: 4px;
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+}
+.tabpanel {
+  background: var(--face);
+  padding: 10px;
+  min-width: 0;
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+
+/* ===================================================================== menus */
+.menubar {
+  display: flex;
+  gap: 0;
+  padding: 1px 2px;
+  flex: 0 0 auto;
+  box-shadow: 0 1px 0 var(--lo), 0 2px 0 var(--hi);
+  margin-bottom: 3px;
+}
+.menubar-btn {
+  padding: 2px 8px;
+  background: transparent;
+  cursor: default;
+}
+.menubar-btn:hover,
+.menubar-btn[aria-expanded='true'] {
+  background: var(--sel);
+  color: var(--sel-text);
+}
+.menu {
+  position: fixed;
+  z-index: 10000;
+  min-width: 170px;
+  padding: 2px;
+  background: var(--face);
+  color: var(--text);
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite), 3px 3px 0 rgba(0, 0, 0, 0.35);
+}
+.menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 24px 3px 8px;
+  text-align: left;
+  background: transparent;
+  cursor: default;
+  white-space: nowrap;
+}
+.menu-item:hover:not(:disabled),
+.menu-item:focus-visible:not(:disabled) {
+  background: var(--sel);
+  color: var(--sel-text);
+  outline: none;
+}
+.menu-item:disabled {
+  color: var(--lo);
+  text-shadow: 1px 1px 0 var(--hi);
+}
+.menu-item .mi-icon {
+  width: 16px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+.menu-item .mi-hint {
+  margin-left: auto;
+  padding-left: 16px;
+  opacity: 0.8;
+}
+.menu-sep {
+  height: 0;
+  margin: 3px 2px;
+  border-top: 1px solid var(--lo);
+  border-bottom: 1px solid var(--hi);
+}
+
+/* ===================================================================== lists / status */
+.list {
+  background: var(--field);
+  color: var(--field-text);
+  overflow: auto;
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo), inset -2px -2px var(--lite), inset 2px 2px var(--dk);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 6px;
+  cursor: default;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+}
+.row:hover {
+  background: color-mix(in srgb, var(--sel) 18%, transparent);
+}
+.row[aria-current='true'],
+.row.sel {
+  background: var(--sel);
+  color: var(--sel-text);
+}
+.statusbar {
+  display: flex;
+  gap: 2px;
+  padding: 3px 1px 0;
+  flex: 0 0 auto;
+}
+.sb-panel {
+  padding: 2px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.badge {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 5px;
+  text-align: center;
+  background: #a00000;
+  color: #fff;
+  font-weight: 700;
+  line-height: 15px;
+  box-shadow: inset -1px -1px #400000, inset 1px 1px #ff8080;
+}
+:root[data-theme='hacker'] .badge,
+:root[data-theme='amber'] .badge,
+:root[data-theme='contrast'] .badge,
+:root[data-crt='on'] .badge {
+  background: var(--sel);
+  color: var(--sel-text);
+  box-shadow: none;
+}
+.lamp {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background: #808080;
+  box-shadow: inset -1px -1px rgba(0, 0, 0, 0.5), inset 1px 1px rgba(255, 255, 255, 0.5);
+  flex: 0 0 auto;
+}
+.lamp.on {
+  background: #00e000;
+  box-shadow: 0 0 4px #00e000, inset -1px -1px rgba(0, 0, 0, 0.4), inset 1px 1px rgba(255, 255, 255, 0.6);
+}
+.lamp.warn {
+  background: #ffd000;
+  box-shadow: 0 0 4px #ffd000, inset -1px -1px rgba(0, 0, 0, 0.4);
+}
+.lamp.bad {
+  background: #ff3030;
+  box-shadow: 0 0 4px #ff3030, inset -1px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* ===================================================================== desktop + taskbar */
+.desktop {
+  position: fixed;
+  inset: 0;
+  background: var(--desktop);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.desktop-area {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+.appwin {
+  position: absolute;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+}
+.appwin.max {
+  inset: 0;
+}
+.appwin.windowed {
+  inset: 18px 24px 18px 110px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 900px) {
+  .appwin.windowed {
+    inset: 0;
+    box-shadow: none;
+  }
+  .desk-icons {
+    display: none !important;
+  }
+}
+.appwin > .win {
+  flex: 1;
+}
+.desk-icons {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 0;
+}
+.desk-icon {
+  width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+  text-align: center;
+  background: transparent;
+  padding: 2px;
+  cursor: default;
+  text-shadow: 1px 1px 0 #000;
+}
+.desk-icon span {
+  padding: 0 2px;
+}
+.desk-icon:focus-visible span,
+.desk-icon:hover span {
+  background: var(--sel);
+  color: var(--sel-text);
+  outline: 1px dotted #fff;
+}
+.taskbar {
+  flex: 0 0 auto;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 3px;
+  background: var(--face);
+  color: var(--text);
+  box-shadow: inset 0 1px var(--lite), inset 0 2px var(--hi);
+  position: relative;
+  z-index: 20;
+}
+.task-btn {
+  height: 24px;
+  min-width: 0;
+  max-width: 220px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: var(--face);
+  cursor: default;
+  font-weight: 700;
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+}
+.task-btn.active {
+  font-weight: 700;
+  background-image: linear-gradient(45deg, var(--hi) 25%, transparent 25%, transparent 75%, var(--hi) 75%), linear-gradient(45deg, var(--hi) 25%, transparent 25%, transparent 75%, var(--hi) 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--dk), inset -2px -2px var(--lite), inset 2px 2px var(--lo);
+}
+.tray {
+  margin-left: auto;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi);
+}
+
+/* ===================================================================== loading / misc */
+.pxbar {
+  height: 18px;
+  overflow: hidden;
+  background: var(--field);
+  padding: 2px;
+  box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo), inset -2px -2px var(--lite), inset 2px 2px var(--dk);
+}
+.pxbar > i {
+  display: block;
+  height: 100%;
+  width: 40%;
+  background: repeating-linear-gradient(90deg, var(--sel) 0 8px, transparent 8px 10px);
+  animation: pxslide 1.6s steps(16) infinite;
+}
+.pxbar.done > i {
+  width: 100%;
+  animation: none;
+}
+@keyframes pxslide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+.hourglass {
+  display: inline-block;
+  width: 1.2em;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.px {
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+  flex: 0 0 auto;
+}
+.dim {
+  color: var(--lo);
+}
+:root[data-theme='hacker'] .dim,
+:root[data-theme='amber'] .dim,
+:root[data-theme='contrast'] .dim,
+:root[data-crt='on'] .dim {
+  color: var(--term-dim);
+}
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.25) 75%), linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.25) 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.toasts {
+  position: fixed;
+  right: 10px;
+  bottom: 38px;
+  opacity: 0.97;
+  z-index: 9500;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  pointer-events: none;
+  max-width: calc(100vw - 20px);
+}
+.toasts > * {
+  pointer-events: auto;
+}
+.hr {
+  height: 0;
+  border-top: 1px solid var(--lo);
+  border-bottom: 1px solid var(--hi);
+  margin: 6px 0;
+}
+.cursor::after {
+  content: '█';
+  animation: blink 1s steps(1) infinite;
+  margin-left: 2px;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+table.dt {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.dt th {
+  text-align: left;
+  font-weight: 400;
+  padding: 2px 6px;
+  background: var(--face);
+  box-shadow: inset -1px -1px var(--dk), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--lite);
+  position: sticky;
+  top: 0;
+}
+table.dt td {
+  padding: 2px 6px;
+  vertical-align: top;
+}
+table.dt tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--lo) 12%, transparent);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===================================================================== CRT overlay */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+  display: none;
+}
+:root[data-scan='on'] .crt-overlay {
+  display: block;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.14) 0, rgba(0, 0, 0, 0.14) 1px, transparent 1px, transparent 3px);
+}
+:root[data-crt='on'] .crt-overlay {
+  display: block;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.22) 0, rgba(0, 0, 0, 0.22) 1px, transparent 1px, transparent 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  animation: flicker 6s infinite steps(1);
+}
+@keyframes flicker {
+  0%,
+  96%,
+  100% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.82;
+  }
+  98% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.9;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

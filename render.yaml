@@ -1,0 +1,26 @@
+# Render.com blueprint for the ECN backend (API + Socket.IO).
+# Deploy the React client separately on Vercel (see README) or set SERVE_CLIENT=true and build it here too.
+services:
+  - type: web
+    name: ecn-server
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false            # paste your MongoDB Atlas connection string in the Render dashboard
+      - key: SESSION_SECRET
+        generateValue: true    # Render generates a long random value
+      - key: CLIENT_ORIGIN
+        sync: false            # e.g. https://your-app.vercel.app  (no trailing slash)
+      - key: TRUST_PROXY
+        value: "2"             # Vercel -> Render = 2 proxy hops. Use 1 if browsers call Render directly.
+      - key: FORCE_HTTPS
+        value: "true"
+      - key: SERVE_CLIENT
+        value: "false"
